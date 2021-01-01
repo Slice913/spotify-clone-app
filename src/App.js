@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import Login from "./Login";
-import { getTokenFromUrl } from "./spotify";
+import { getTokenFromResponse } from "./spotify";
 import SpotifyWebApi from "spotify-web-api-js";
 import Player from "./Player";
 import { useDataLayerValue } from "./DataLayer";
@@ -12,7 +12,7 @@ function App() {
   const [{ user, token }, dispatch] = useDataLayerValue();
 
   useEffect(() => {
-    const hash = getTokenFromUrl();
+    const hash = getTokenFromResponse();
     window.location.hash = "";
     const _token = hash.access_token;
 
@@ -37,6 +37,13 @@ function App() {
           playlists: playlists,
         });
       });
+      // id from spotify playlist in ('')
+      spotify.getPlaylist("1WNnfTnEECd3xNRpevv0nw").then((response) =>
+        dispatch({
+          type: " SET_DISCOVER_WEEKLY ",
+          discover_weekly: response,
+        })
+      );
     }
   }, []);
 

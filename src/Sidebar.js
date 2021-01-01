@@ -4,6 +4,7 @@ import SidebarOption from "./SidebarOption";
 import HomeIcon from "@material-ui/icons/Home";
 import SearchIcon from "@material-ui/icons/Search";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
+import { getTokenFromResponse } from "./spotify";
 import { useDataLayerValue } from "./DataLayer";
 
 function Sidebar() {
@@ -25,7 +26,7 @@ function Sidebar() {
       <hr />
 
       {playlists?.items?.map((playlist) => (
-        <SidebarOption title={playlist.name} />
+        <SidebarOption option={playlist.name} />
       ))}
     </div>
   );
